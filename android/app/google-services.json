@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "869055027666",
+    "project_id": "campusswap-2c21f",
+    "storage_bucket": "campusswap-2c21f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869055027666:android:fd83c5fd49f476fa89d00b",
+        "android_client_info": {
+          "package_name": "edu.campusswap.campus_swap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869055027666-eqbtdpgc63md04jrnkr1ahlmut8mhvav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSmkksxzKFqSmJGmsqxgiXeAsindvy2O0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869055027666-eqbtdpgc63md04jrnkr1ahlmut8mhvav.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "869055027666-ugguiblhgs4kodi89kfu7ppjv89l2t2h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "edu.campusswap.campusSwap"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

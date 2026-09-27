@@ -1,0 +1,52 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isVerified() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    // Listing photos live under listings/{uid}/{listingId}/... and are only
+    // writable by the owning student. Images stay publicly readable so
+    // CachedNetworkImage can render them with a download URL.
+    match /listings/{userId}/{listingId}/{fileName} {
+      allow read: if true;
+      allow write: if isVerified()
+        && request.auth.uid == userId
+        && isImage()
+        && request.resource.size <= 5 * 1024 * 1024;
+      allow delete: if isVerified() && request.auth.uid == userId;
+    }
+
+    // Profile photos are owned by, and writable only by, that user. Public
+    // read so avatars render through a download URL.
+    match /profile_images/{userId}/{fileName} {
+      allow read: if true;
+      allow write: if isVerified()
+        && request.auth.uid == userId
+        && isImage()
+        && request.resource.size <= 5 * 1024 * 1024;
+      allow delete: if isVerified() && request.auth.uid == userId;
+    }
+
+    // Chat photos. Storage rules can't check Firestore participants, so we
+    // require a verified uploader and an image under the size cap; reads stay
+    // limited to verified users.
+    match /chat_images/{conversationId}/{fileName} {
+      allow read: if isVerified();
+      allow write: if isVerified()
+        && isImage()
+        && request.resource.size <= 5 * 1024 * 1024;
+    }
+
+    // Deny everything else by default.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

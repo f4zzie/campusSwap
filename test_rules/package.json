@@ -1,0 +1,16 @@
+{
+  "name": "campusswap-rules-tests",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Firebase security-rules integration tests for CampusSwap (run against the local emulator).",
+  "scripts": {
+    "test": "npm run test:firestore && npm run test:storage",
+    "test:firestore": "firebase emulators:exec --only firestore --project campusswap-2c21f \"node test_rules/firestore.test.mjs\"",
+    "test:storage": "firebase emulators:exec --only storage --project campusswap-2c21f \"node test_rules/storage.test.mjs\""
+  },
+  "dependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
+    "firebase": "^12.19.0"
+  }
+}
