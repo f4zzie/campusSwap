@@ -28,12 +28,12 @@ class CloudinaryConfig {
 
   static const cloudName = String.fromEnvironment(
     'CLOUDINARY_CLOUD_NAME',
-    defaultValue: placeholderCloudName,
+    defaultValue: 'dckaippk',
   );
 
   static const uploadPreset = String.fromEnvironment(
     'CLOUDINARY_UPLOAD_PRESET',
-    defaultValue: placeholderUploadPreset,
+    defaultValue: 'campusswap',
   );
 
   /// Largest image we allow, matching the old Storage rules' 5 MB cap.
