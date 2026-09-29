@@ -105,9 +105,20 @@ void main() {
       );
     });
 
+    test('surfaces common Firestore failure codes', () {
+      expect(
+        friendlyError('[cloud_firestore/permission-denied] ...'),
+        'Permission denied by the server. Your account may not be allowed to do this yet.',
+      );
+      expect(
+        friendlyError('[cloud_firestore/failed-precondition] requires an index'),
+        'The server is missing a database index for this request. Please try again shortly.',
+      );
+    });
+
     test('falls back to a generic message', () {
       expect(
-        friendlyError('permission-denied'),
+        friendlyError('some unrecognized failure'),
         'We could not complete that action. Please try again.',
       );
     });

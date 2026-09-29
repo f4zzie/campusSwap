@@ -464,5 +464,16 @@ String friendlyError(Object error) {
   if (text.contains('weak-password')) return 'Choose a stronger password.';
   if (text.contains('network-request-failed'))
     return 'Check your internet connection and try again.';
+  // Firestore write failures currently all collapse into the generic message
+  // below, which hides what actually went wrong. Surface the common codes so
+  // rule / index problems are diagnosable from the UI.
+  if (text.contains('permission-denied') || text.contains('PERMISSION_DENIED'))
+    return 'Permission denied by the server. Your account may not be allowed to do this yet.';
+  if (text.contains('failed-precondition') ||
+      text.contains('FAILED_PRECONDITION') ||
+      text.contains('requires an index'))
+    return 'The server is missing a database index for this request. Please try again shortly.';
+  if (text.contains('unavailable') || text.contains('UNAVAILABLE'))
+    return 'Can\'t reach the server right now. Please try again.';
   return 'We could not complete that action. Please try again.';
 }

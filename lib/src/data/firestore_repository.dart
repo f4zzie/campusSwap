@@ -138,8 +138,14 @@ class FirestoreRepository {
   }) async {
     final existing = await _firestore
         .collection('conversations')
+        // The read rule requires request.auth.uid to be in participantIds, and
+        // Firestore rejects any query it can't prove satisfies that — so the
+        // query must constrain participantIds, not just buyerId, or it fails
+        // with permission-denied. The caller only reaches here as the buyer (a
+        // seller can't message their own listing), so the one conversation for
+        // this listing that lists this user is their buyer-side conversation.
+        .where('participantIds', arrayContains: buyerId)
         .where('listingId', isEqualTo: listing.id)
-        .where('buyerId', isEqualTo: buyerId)
         .limit(1)
         .get();
     if (existing.docs.isNotEmpty) return existing.docs.first.id;
