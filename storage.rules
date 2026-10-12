@@ -15,7 +15,7 @@ service firebase.storage {
     // writable by the owning student. Images stay publicly readable so
     // CachedNetworkImage can render them with a download URL.
     match /listings/{userId}/{listingId}/{fileName} {
-      allow read: if true;
+      allow read: if isVerified();
       allow write: if isVerified()
         && request.auth.uid == userId
         && isImage()
@@ -26,7 +26,7 @@ service firebase.storage {
     // Profile photos are owned by, and writable only by, that user. Public
     // read so avatars render through a download URL.
     match /profile_images/{userId}/{fileName} {
-      allow read: if true;
+      allow read: if isVerified();
       allow write: if isVerified()
         && request.auth.uid == userId
         && isImage()

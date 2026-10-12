@@ -18,9 +18,10 @@ import {
   BULK_NOTIFICATIONS,
   BULK_EXTRA_FAVORITES,
 } from './bulk_data.mjs';
+import { DEMO_PASSWORD as ENV_DEMO_PASSWORD } from './runtime_config.mjs';
 
 /** Shared password for every demo account. Credentials never touch Firestore. */
-export const DEMO_PASSWORD = 'DemoStudent2026';
+export const DEMO_PASSWORD = ENV_DEMO_PASSWORD;
 
 const BASE_USERS = [
   {

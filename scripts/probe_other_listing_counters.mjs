@@ -8,8 +8,8 @@
 //
 //   node scripts/probe_other_listing_counters.mjs
 
-const PROJECT = 'campusswap-2c21f';
-const API_KEY = 'AIzaSyCSmkksxzKFqSmJGmsqxgiXeAsindvy2O0';
+import { API_KEY, DEMO_PASSWORD, PROJECT } from './runtime_config.mjs';
+
 const IDENTITY = 'https://identitytoolkit.googleapis.com/v1';
 const DOCS = `https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/(default)/documents`;
 
@@ -63,7 +63,9 @@ async function attempt(label, fn) {
   }
 }
 
-const david = await signIn('david.kimani@campusswap.test', 'DemoStudent2026');
+const davidEmail =
+  process.env.CAMPUSSWAP_DEMO_SIGNIN_EMAIL?.trim() || 'david.kimani@campusswap.test';
+const david = await signIn(davidEmail, DEMO_PASSWORD);
 // demo-calculus belongs to seedAmina, not to David.
 const target = 'listings/demo-calculus';
 

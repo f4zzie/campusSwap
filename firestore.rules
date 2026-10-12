@@ -21,7 +21,7 @@ service cloud.firestore {
 
     // Users can read public profiles, but only edit their own.
     match /users/{userId} {
-      allow read: if signedIn();
+      allow read: if isVerified();
       // A new account must create its own profile at sign-up, before the email
       // is verified. Everything else still requires isVerified(), and the
       // router keeps unverified users on /verify, so this is the one write an
@@ -54,7 +54,7 @@ service cloud.firestore {
 
     // Marketplace listings.
     match /listings/{listingId} {
-      allow read: if signedIn();
+      allow read: if isVerified();
 
       allow create: if isVerified()
         && request.resource.data.sellerId == request.auth.uid
@@ -190,9 +190,23 @@ service cloud.firestore {
     match /notifications/{userId}/items/{itemId} {
       allow read: if isSelf(userId);
       allow create: if isVerified()
+        && request.auth.uid != userId
         && request.resource.data.title is string
         && request.resource.data.body is string
         && request.resource.data.type is string
+        && request.resource.data.type in [
+          'message',
+          'swapRequest',
+          'swapAccepted',
+          'swapDeclined',
+          'listingSold',
+          'listingSwapped',
+          'system'
+        ]
+        && (
+          request.resource.data.relatedId == null
+          || request.resource.data.relatedId is string
+        )
         && request.resource.data.read == false
         && request.resource.data.createdAt == request.time;
       // The owner may only flip the read flag.

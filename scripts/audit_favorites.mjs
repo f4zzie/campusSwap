@@ -5,9 +5,8 @@
 //   node scripts/audit_favorites.mjs
 
 import { DEMO_PASSWORD, DEMO_USERS, EXTRA_FAVORITES, LISTINGS } from './demo_data.mjs';
+import { API_KEY, PROJECT } from './runtime_config.mjs';
 
-const PROJECT = 'campusswap-2c21f';
-const API_KEY = 'AIzaSyCSmkksxzKFqSmJGmsqxgiXeAsindvy2O0';
 const IDENTITY = 'https://identitytoolkit.googleapis.com/v1';
 const DOCS = `https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/(default)/documents`;
 

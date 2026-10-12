@@ -51,6 +51,8 @@ android/key.properties
 
 # Firebase local cache
 .firebase/
+scripts/auth_import.json
+scripts/auth_import_one.json
 
 # Widget Preview related
 .widget_preview/

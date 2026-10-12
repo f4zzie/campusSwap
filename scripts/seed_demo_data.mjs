@@ -29,10 +29,8 @@ import {
   SWAPS,
   THREADS,
 } from './demo_data.mjs';
+import { API_KEY, PROJECT } from './runtime_config.mjs';
 
-const PROJECT = 'campusswap-2c21f';
-// The web API key is a public identifier, not a secret (it ships in the app).
-const API_KEY = 'AIzaSyCSmkksxzKFqSmJGmsqxgiXeAsindvy2O0';
 const IDENTITY = 'https://identitytoolkit.googleapis.com/v1';
 const DOCS = `https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/(default)/documents`;
 /** Marker for a value the server must stamp with request.time. */

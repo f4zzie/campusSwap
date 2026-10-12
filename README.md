@@ -148,6 +148,22 @@ flutter test                    # Unit + widget tests
 dart run build_runner build --delete-conflicting-outputs   # After model changes
 ```
 
+### Demo seed scripts (secure usage)
+
+Set required environment variables before running `scripts/*.mjs`:
+
+```bash
+export CAMPUSSWAP_FIREBASE_API_KEY="<web-api-key>"
+export CAMPUSSWAP_DEMO_PASSWORD="<demo-password>"
+```
+
+Optional overrides:
+
+```bash
+export CAMPUSSWAP_FIREBASE_PROJECT_ID="<firebase-project-id>" # default: campusswap-2c21f
+export CAMPUSSWAP_DEMO_SIGNIN_EMAIL="<demo-user-email>"       # probe scripts only
+```
+
 ## Security rules highlights
 
 - Only verified students can read listings; only owners can edit or delete
